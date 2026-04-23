@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<oggetti>
+    <oggetto_smarrito><id>X1</id><oggetto>Borsa porta PC</oggetto><data_ritrovamento>2026-04-15</data_ritrovamento><luogo>Sicurezza A</luogo><stato>In magazzino</stato></oggetto_smarrito>
+    <oggetto_smarrito><id>X2</id><oggetto>Orologio</oggetto><data_ritrovamento>2026-04-16</data_ritrovamento><luogo>Duty Free</luogo><stato>Reclamato</stato></oggetto_smarrito>
+    <oggetto_smarrito><id>X3</id><oggetto>Peluche Orso</oggetto><data_ritrovamento>2026-04-17</data_ritrovamento><luogo>Area Bimbi</luogo><stato>In magazzino</stato></oggetto_smarrito>
+    <oggetto_smarrito><id>X4</id><oggetto>Reflex Canon</oggetto><data_ritrovamento>2026-04-18</data_ritrovamento><luogo>Ristorante</luogo><stato>In magazzino</stato></oggetto_smarrito>
+    <oggetto_smarrito><id>X5</id><oggetto>Sciarpa in lana</oggetto><data_ritrovamento>2026-04-18</data_ritrovamento><luogo>Gate B22</luogo><stato>Reclamato</stato></oggetto_smarrito>
+    <oggetto_smarrito><id>X6</id><oggetto>Tablet - Samsung</oggetto><data_ritrovamento>2026-04-19</data_ritrovamento><luogo>Gate C10</luogo><stato>Consegnato Polizia</stato></oggetto_smarrito>
+    <oggetto_smarrito><id>X7</id><oggetto>Nike Air Max</oggetto><data_ritrovamento>2026-04-20</data_ritrovamento><luogo>Sicurezza B</luogo><stato>In magazzino</stato></oggetto_smarrito>
+    <oggetto_smarrito><id>X8</id><oggetto>Collana di perle</oggetto><data_ritrovamento>2026-04-20</data_ritrovamento><luogo>Bagni T2</luogo><stato>In magazzino</stato></oggetto_smarrito>
+</oggetti>

@@ -1,0 +1,10 @@
+[
+  {"id": "J1", "oggetto": "Valigia rigida blu", "data_ritrovamento": "2026-04-20", "luogo": "Ritiro Bagagli", "stato": "In magazzino"},
+  {"id": "J2", "oggetto": "Occhiali da sole Ray-Ban", "data_ritrovamento": "2026-04-21", "luogo": "Controlli B", "stato": "Reclamato"},
+  {"id": "J3", "oggetto": "Smartphone nero", "data_ritrovamento": "2026-04-22", "luogo": "Bagni T1", "stato": "Consegnato Polizia"},
+  {"id": "J4", "oggetto": "Zaino Invicta verde", "data_ritrovamento": "2026-04-22", "luogo": "Gate A14", "stato": "In magazzino"},
+  {"id": "J5", "oggetto": "Passaporto", "data_ritrovamento": "2026-04-23", "luogo": "Check-in 12", "stato": "Consegnato Polizia"},
+  {"id": "J6", "oggetto": "Amazon Kindle", "data_ritrovamento": "2026-04-23", "luogo": "Area Lounge", "stato": "In magazzino"},
+  {"id": "J7", "oggetto": "Anello d'oro", "data_ritrovamento": "2026-04-24", "luogo": "Gate B5", "stato": "Reclamato"},
+  {"id": "J8", "oggetto": "Laptop MacBook Air", "data_ritrovamento": "2026-04-25", "luogo": "Area Food", "stato": "Consegnato Polizia"}
+]
