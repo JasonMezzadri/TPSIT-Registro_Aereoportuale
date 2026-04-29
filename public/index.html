@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Registro Aeroportuale</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0 20px;">
+            <button class="btn" onclick="logout()">Esci (Logout)</button>
+            <h1>Registro Aeroportuale</h1>
+            <div id="user-display" style="font-weight: bold; color: var(--accent);"></div>
+        </div>
+        
+        <div class="stats" id="counter">Caricamento oggetti...</div>
+        
+        <div class="filter-bar">
+            <button class="btn active" onclick="filtra('Tutti', this)">Tutti</button>
+            <button class="btn" onclick="filtra('In magazzino', this)">In Magazzino</button>
+            <button class="btn" onclick="filtra('Reclamato', this)">Reclamati</button>
+            <button class="btn" onclick="filtra('Consegnato Polizia', this)">Polizia</button>
+        </div>
+    </header>
+    
+    <main>
+        <div id="oggetti-container" class="card-grid"></div>
+    </main>
+
+    <script>
+        let tuttiGliOggetti = [];
+        // Recuperiamo il ruolo (admin o user) salvato nel localStorage dal login.html
+        const ruolo = localStorage.getItem('ruolo');
+
+        async function inizializza() {
+            // SICUREZZA: Se l'utente non ha un ruolo, lo rimandiamo al login
+            if (!ruolo) {
+                window.location.href = 'login.html';
+                return;
+            }
+            document.getElementById('user-display').innerText = `Utente: ${ruolo.toUpperCase()}`;
+
+            try {
+                // Recuperiamo i dati dall'API del server
+                const response = await fetch('/api/oggetti');
+                tuttiGliOggetti = await response.json();
+                mostraOggetti(tuttiGliOggetti);
+            } catch (error) {
+                document.getElementById('counter').innerText = "Errore nel caricamento dei dati.";
+            }
+        }
+
+        // Genera l'HTML per ogni card
+        function mostraOggetti(lista) {
+            const container = document.getElementById('oggetti-container');
+            container.innerHTML = ''; // Svuota la griglia
+            
+            document.getElementById('counter').innerText = `Visualizzati: ${lista.length} oggetti`;
+
+            lista.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                
+                // Formatta lo stato per la classe CSS (es: "In magazzino" -> "in-magazzino")
+                let statoCls = item.stato.toLowerCase().replace(' ', '-');
+
+                // LOGICA PULSANTI: Cambia in base a chi è loggato
+                let actionBtn = '';
+                if (ruolo === 'admin') {
+                    // L'admin può cestinare (tasto rosso)
+                    actionBtn = `<button class="btn" style="border-color: #e07a5f; color: #e07a5f; width: 100%; margin-top: 15px;" onclick="eliminaOggetto('${item.id}')">🗑️ Cestina Oggetto</button>`;
+                } else {
+                    // L'utente può riprendere l'oggetto (tasto verde)
+                    actionBtn = `<button class="btn" style="border-color: #82a084; color: #82a084; width: 100%; margin-top: 15px;" onclick="eliminaOggetto('${item.id}', true)">📦 Riprendi Oggetto</button>`;
+                }
+
+                card.innerHTML = `
+                    <div class="card-header">
+                        <span class="id-tag">#${item.id}</span>
+                        <span class="stato-dot ${statoCls}"></span>
+                    </div>
+                    <h3>${item.oggetto}</h3>
+                    <p>📍 <strong>Luogo:</strong> ${item.luogo}</p>
+                    <p>📅 <strong>Data:</strong> ${item.data_ritrovamento}</p>
+                    <div class="stato-footer">${item.stato}</div>
+                    ${actionBtn}
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Gestisce la rimozione dell'oggetto tramite API DELETE
+        async function eliminaOggetto(id, isUser = false) {
+            const msg = isUser ? "Hai ritirato il tuo oggetto correttamente!" : "Oggetto rimosso definitivamente dal registro.";
+            
+            if (confirm("Sei sicuro di voler procedere?")) {
+                const response = await fetch(`/api/oggetti/${id}`, { method: 'DELETE' });
+                if (response.ok) {
+                    alert(msg);
+                    // Aggiorniamo la lista locale e ridisegniamo la pagina
+                    const res = await fetch('/api/oggetti');
+                    tuttiGliOggetti = await res.json();
+                    mostraOggetti(tuttiGliOggetti);
+                }
+            }
+        }
+
+        // Filtra la visualizzazione senza ricaricare la pagina
+        function filtra(stato, btn) {
+            document.querySelectorAll('.btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            
+            const filtrati = stato === 'Tutti' ? tuttiGliOggetti : tuttiGliOggetti.filter(o => o.stato === stato);
+            mostraOggetti(filtrati);
+        }
+
+        // Pulisce la sessione e torna al login
+        function logout() {
+            localStorage.clear();
+            window.location.href = 'login.html';
+        }
+
+        // Avvio automatico
+        inizializza();
+    </script>
+</body>
+</html>

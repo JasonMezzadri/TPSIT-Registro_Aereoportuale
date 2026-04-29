@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Registro Aeroportuale</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Stili specifici per la scatola di login */
+        .login-box { 
+            max-width: 400px; margin: 100px auto; background: white; 
+            padding: 40px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+            text-align: center; 
+        }
+        input { 
+            width: 100%; padding: 12px; margin: 10px 0; 
+            border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; 
+        }
+        .error { color: #e07a5f; font-weight: bold; margin-bottom: 15px; display: none; }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h2>Accedi al Registro</h2>
+        <p id="error-msg" class="error">Credenziali non valide!</p>
+        
+        <input type="text" id="username" placeholder="Username (admin o user)">
+        <input type="password" id="password" placeholder="Password (admin123 o user123)">
+        
+        <button class="btn active" style="width: 100%; margin-top: 20px;" onclick="eseguiLogin()">Entra</button>
+        
+        <p style="font-size: 0.8rem; color: #888; margin-top: 20px;">
+            Suggerimento: admin/admin123 oppure user/user123
+        </p>
+    </div>
+
+    <script>
+        function eseguiLogin() {
+            const u = document.getElementById('username').value;
+            const p = document.getElementById('password').value;
+
+            // Simulazione controllo credenziali
+            if (u === 'admin' && p === 'admin123') {
+                // Salviamo il ruolo per farlo leggere alla pagina index.html
+                localStorage.setItem('ruolo', 'admin');
+                window.location.href = 'index.html';
+            } 
+            else if (u === 'user' && p === 'user123') {
+                localStorage.setItem('ruolo', 'user');
+                window.location.href = 'index.html';
+            } 
+            else {
+                // Mostra il messaggio di errore se i dati sono sbagliati
+                document.getElementById('error-msg').style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
